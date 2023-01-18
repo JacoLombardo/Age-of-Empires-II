@@ -1,21 +1,23 @@
-@media screen and (max-width: 529px) {
-    div.homeDiv {
-            background-image: url(../Images/Menu/Menu5.png);
-            background-size: 100%
-        }
-}
-
-@media screen and (min-width: 530px) {
+@media screen and (min-width: 550px) {
     div.homeDiv {
         background-image: url(../Images/Menu/Menu4.jpg);
     }
-    
+    .gridMenu{
+        display: grid;
+        grid-template-rows: 484px 34px 20px 44px 14px 44px 13px 44px 13px 44px 13px 44px auto;
+        grid-template-columns: 12px 40px 206px 20px 206px 34px auto;
+    }
 }
 
-.gridMenu{
-    display: grid;
-    grid-template-rows: 484px 34px 20px 44px 14px 44px 13px 44px 13px 44px 13px 44px auto;
-    grid-template-columns: 12px 40px 206px 20px 206px 34px auto;
+@media screen and (max-width: 550px) {
+    .gridMenu {
+        display: grid;
+        grid-template-rows: 484px 34px 20px 44px 14px 44px 13px 44px 13px 44px 13px 44px auto;
+        grid-template-columns: auto 40px 206px 20px 206px 34px auto;
+    }
+    /* div.homeDiv {
+        background: radial-gradient(circle, rgba(255, 255, 102, 1) 21%, rgba(255, 153, 51, 1) 94%);
+    } */
 }
 
 .menuButton{

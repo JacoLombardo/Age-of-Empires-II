@@ -1,4 +1,4 @@
-let technologiesdata = {
+export const technologiesdata = {
     "technologies": [
         {
             "id": 1,

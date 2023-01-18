@@ -19,7 +19,6 @@ function Comment({unit, civilization, structure, technology, comment}) {
             const querySnapshot = await getDocs(collection(db, "Comments", "Units", `Unit id-${unit.id}`));
             let myComment
             querySnapshot.forEach((doc) => {
-            console.log(doc.data().date.seconds)
             if (doc.data().date.seconds === comment.date.seconds) {
                 myComment = doc.id
             }
@@ -27,11 +26,9 @@ function Comment({unit, civilization, structure, technology, comment}) {
         await deleteDoc(doc(db, "Comments", "Units", `Unit id-${unit.id}`, `${myComment}`));
 
         } if (civilization) {
-            console.log("inside civilization")
             const querySnapshot = await getDocs(collection(db, "Comments", "Civilizations", `Civilization id-${civilization.id}`));
             let myComment
             querySnapshot.forEach(async (doc) => {
-                console.log(doc.data().date.seconds)
                 if (doc.data().date.seconds === comment.date.seconds) {
                     myComment = doc.id
                 }
@@ -42,7 +39,6 @@ function Comment({unit, civilization, structure, technology, comment}) {
             const querySnapshot = await getDocs(collection(db, "Comments", "Technologies", `Technology id-${technology.id}`));
             let myComment
             querySnapshot.forEach((doc) => {
-                console.log(doc.data().date.seconds)
                 if (doc.data().date.seconds === comment.date.seconds) {
                     myComment = doc.id
                 }
@@ -53,7 +49,6 @@ function Comment({unit, civilization, structure, technology, comment}) {
             const querySnapshot = await getDocs(collection(db, "Comments", "Structures", `Structure id-${structure.id}`));
             let myComment
             querySnapshot.forEach((doc) => {
-                console.log(doc.data().date.seconds)
                 if (doc.data().date.seconds === comment.date.seconds) {
                     myComment = doc.id
                 }

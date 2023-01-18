@@ -18,7 +18,7 @@
     width: 10rem;
     height: 13rem;
     margin: 7px;
-    background-image: url(../../Images/Card/card3.jpg);
+    background-image: url(../../../Images/Card/card3.jpg);
     background-size: cover;
     background-position: center;
     border-radius: 5px;
@@ -54,7 +54,7 @@
 }
 
 .detailedDiv{
-    background-image: url(../../Images/Book/paper5.jpeg);
+    background-image: url(../../../Images/Book/paper5.jpeg);
     background-size: 100%;
     width: 450px;
     margin-left: auto;

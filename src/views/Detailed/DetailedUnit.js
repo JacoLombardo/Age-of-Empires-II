@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import NavBar from '../components/NavBar/NavBar'
-import Loader from '../components/Loader/Loader';
+import NavBar from '../.././components/NavBar/NavBar'
+import Loader from '../.././components/Loader/Loader';
 import { HashLink } from 'react-router-hash-link';
-import { AuthContext } from '../context/AuthContext';
-import Chat from '../components/Chat/Chat';
+import { AuthContext } from '../.././context/AuthContext';
+import Chat from '../.././components/Chat/Chat';
 
 function DetailedUnit() {
 
@@ -12,46 +12,19 @@ function DetailedUnit() {
   const { id } = useParams();
   const [detailedUnit, setDetailedUnit] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [createdIn, setCreatedIn] = useState([]);
-
-  function importAll(r) {
-    let images = {};
-    r.keys().forEach((item) => { images[item.replace('./', '')] = r(item); });
-    return images;
-  }
-
-  const images = importAll(require.context('../Images/Units', false, /\.(png|jpe?g|svg)$/));
   
   const fetchUnit = () => {
-        const url = `https://cab-cors-anywhere.herokuapp.com/https://age-of-empires-2-api.herokuapp.com/api/v1/unit/${id}`;
-        fetch(url)
-            .then((response) => response.json())
-            .then((result) => {
-                console.log(result);
-                setDetailedUnit(result);
-                fetchCreatedIn(result.created_in);
-            })
-            .catch((error) => {
-                console.log("error", error);
-            });
-  }
-
-  const fetchCreatedIn = (url2) => {
-        const url = `https://cab-cors-anywhere.herokuapp.com/${url2}`;
-        fetch(url)
-            .then((response) => response.json())
-            .then((result) => {
-              if (result.length > 1) {
-                setCreatedIn(result[0]);
-              } else {
-                setCreatedIn(result);
-              }
-                setLoading(false);
-            })
-            .catch((error) => {
-                console.log("error", error);
-            });
-  }
+    const url = `http://age-of-empires-2-api.vercel.app/api/units/byid?id=${id}`;
+    fetch(url)
+      .then((response) => response.json())
+      .then((result) => {
+        setDetailedUnit(result);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.log("error", error);
+      });
+  };
 
   useEffect(() => {
     fetchUnit();
@@ -86,12 +59,12 @@ function DetailedUnit() {
                     })}
                   </div>
               </div>}
-              {createdIn && <div className="detailedInfo">
-                  <p className="classInfo">Created In:&nbsp;&nbsp;&nbsp; </p>
-                  <HashLink to={`/structures/#${createdIn.id}`} className="textInfo">{createdIn.name}</HashLink>
+              {detailedUnit.trained_at && <div className="detailedInfo">
+                  <p className="classInfo">Trained At:&nbsp;&nbsp;&nbsp; </p>
+                  <HashLink to={`/structures/#${detailedUnit.trained_at[0].id}`} className="textInfo">{detailedUnit.trained_at[0].name}</HashLink>
                 </div>}
             </div>
-              <img className="detailedImgCiv" src={images[`${detailedUnit.id}.png`]} alt={detailedUnit.name}></img>
+              <img className="detailedImgCiv" src={detailedUnit.image} alt={detailedUnit.name}></img>
           </div>
           <div className="detailedInfoList">
             <div>
@@ -118,23 +91,21 @@ function DetailedUnit() {
                 {detailedUnit.range && <div className="detailedInfoList">
                   <p className="classInfo">Range:&nbsp;&nbsp;&nbsp; </p><p className="textInfo">{detailedUnit.range}</p>
                 </div>}
-                {detailedUnit.attack && <div className="detailedInfoList">
+                {/* {detailedUnit.attack && <div className="detailedInfoList">
                   <p className="classInfo">Attack:&nbsp;&nbsp;&nbsp; </p><p className="textInfo">{detailedUnit.attack}</p>
-                </div>}
+                </div>} */}
               </div>
               <div>
-                {detailedUnit.armor && <div className="detailedInfoList">
+                {/* {detailedUnit.armor && <div className="detailedInfoList">
                   <p className="classInfo">Armor:&nbsp;&nbsp;&nbsp; </p><p className="textInfo">{detailedUnit.armor}</p>
-                </div>}
+                </div>} */}
           {detailedUnit.accuracy && <div className="detailedInfoList">
               <p className="classInfo">Accuracy:&nbsp;&nbsp;&nbsp; </p><p className="textInfo">{detailedUnit.accuracy}</p>
           </div>}
             </div>
             </div>
-
           { user && <hr className="hr3"></hr>}
           { user && <Chat unit={detailedUnit} />}
-
           </div>
             ) : (
               <div className="loaderDiv">

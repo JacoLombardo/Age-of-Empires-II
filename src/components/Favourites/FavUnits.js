@@ -1,6 +1,6 @@
-import { collection, onSnapshot, query } from "firebase/firestore";
+import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import React, { useContext, useEffect, useState } from "react";
-import Unit from "../../components/Units/Unit";
+import Unit from "../../components/content/Units/Unit";
 import Loader from "../../components/Loader/Loader";
 import { db } from "../../config";
 import { AuthContext } from "../../context/AuthContext";
@@ -12,7 +12,7 @@ function FavUnits() {
   const [favouriteUnits, setFavouriteUnits] = useState([]);
 
   const getFavourite = async () => {
-    const q = query(collection(db, "Favourites", `${user.email}`, "Units"));
+    const q = query(collection(db, "Favourites", `${user.email}`, "Units"), orderBy("id"));
             onSnapshot(q, (querySnapshot) => {
             const myFav = [];
             querySnapshot.forEach((doc) => {
@@ -25,7 +25,7 @@ function FavUnits() {
   const fetchFavourites = async (myFav) => {
     const favouritesArray = await Promise.all(
       myFav.map(async (fav) => {
-        const url = `https://cab-cors-anywhere.herokuapp.com/https://age-of-empires-2-api.herokuapp.com/api/v1/unit/${fav}`;
+        const url = `http://age-of-empires-2-api.vercel.app/api/units/byid?id=${fav}`;
 
         const reponses = await fetch(url);
         const results = await reponses.json();

@@ -1,4 +1,4 @@
-let civilizationsdata = {
+export const civilizationsdata = {
     "civilizations": [
         {
             "id": 1,

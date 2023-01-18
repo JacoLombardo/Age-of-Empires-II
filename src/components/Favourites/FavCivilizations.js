@@ -1,6 +1,6 @@
-import { collection, onSnapshot, query } from "firebase/firestore";
+import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import React, { useContext, useEffect, useState } from "react";
-import Civilization from "../../components/Civilizations/Civilization";
+import Civilization from "../../components/content/Civilizations/Civilization";
 import Loader from "../../components/Loader/Loader";
 import { db } from "../../config";
 import { AuthContext } from "../../context/AuthContext";
@@ -11,11 +11,11 @@ function FavCivilizations() {
   const [favouriteCivilizations, setFavouriteCivilizations] = useState([]);
 
   const getFavourite = async () => {
-    const q = query(collection(db, "Favourites", `${user.email}`, "Civilizations"));
+    const q = query(collection(db, "Favourites", `${user.email}`, "Civilizations"), orderBy("id"));
             onSnapshot(q, (querySnapshot) => {
             const myFav = [];
             querySnapshot.forEach((doc) => {
-                myFav.push(doc.data().id);
+              myFav.push(doc.data().id);
             });
               fetchFavourites(myFav);
             });
@@ -24,8 +24,7 @@ function FavCivilizations() {
   const fetchFavourites = async (myFav) => {
     const favouritesArray = await Promise.all(
       myFav.map(async (fav) => {
-        const url = `https://cab-cors-anywhere.herokuapp.com/https://age-of-empires-2-api.herokuapp.com/api/v1/civilization/${fav}`;
-
+        const url = `http://age-of-empires-2-api.vercel.app/api/civilizations/byid?id=${fav}`;
         const reponses = await fetch(url);
         const results = await reponses.json();
         return results;

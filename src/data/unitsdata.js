@@ -1,4 +1,4 @@
-let unitsdata = {
+export const unitsdata = {
     "units": [
         {
             "id": 1,

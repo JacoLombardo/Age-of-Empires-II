@@ -14,7 +14,6 @@ function Pagination2({ data, dataLimit }) {
 
       {getPaginationGroup().map((item, index) => (
         <button key={index} onClick={
-          
           changePage
         } className={`paginationItem ${currentPage === item ? 'active' : null}`}><span>{item}</span></button>
       ))}

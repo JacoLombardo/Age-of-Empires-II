@@ -1,4 +1,4 @@
-let structuresdata = {
+export const structuresdata = {
     "structures": [
         {
             "id": 1,

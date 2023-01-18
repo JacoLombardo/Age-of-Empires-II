@@ -1,11 +1,11 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import Civilization from './Civilization';
-import Loader from '../Loader/Loader';
-import Pagination from '../Pagination/Pagination';
-import SearchBar from '../SearchBar/SearchBar';
-import '../SearchBar/SearchBar.css';
-import NavBar from '../NavBar/NavBar';
+import Loader from '../.././Loader/Loader';
+import Pagination from '../.././Pagination/Pagination';
+import SearchBar from '../.././SearchBar/SearchBar';
+import '../../SearchBar/SearchBar.css';
+import NavBar from '../.././NavBar/NavBar';
 
 function Civilizations() {
 
@@ -23,12 +23,11 @@ function Civilizations() {
     }
 
     const fetchCivilizations = () => {
-        const url = `https://cab-cors-anywhere.herokuapp.com/https://age-of-empires-2-api.herokuapp.com/api/v1/civilizations`;
+        const url = "http://age-of-empires-2-api.vercel.app/api/civilizations/all";
         fetch(url)
             .then((response) => response.json())
             .then((result) => {
-                console.log(result.civilizations);
-                setCivilizations(result.civilizations);
+                setCivilizations(result);
                 setLoading(false);
             })
             .catch((error) => {
